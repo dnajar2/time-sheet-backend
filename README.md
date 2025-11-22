@@ -1,24 +1,77 @@
-# README
+# Timesheet API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A Rails API for managing timesheets and tracking billable hours.
 
-Things you may want to cover:
+## Setup
 
-* Ruby version
+```bash
+bundle install
+rails db:create
+rails db:migrate
+rails s
+```
 
-* System dependencies
+## Authentication
 
-* Configuration
+The API uses JWT (JSON Web Tokens) for authentication.
 
-* Database creation
+### Sign Up
+```bash
+POST /api/v1/auth/sign_up
+{
+  "user": {
+    "email": "user@example.com",
+    "password": "password123",
+    "password_confirmation": "password123"
+  }
+}
+```
 
-* Database initialization
+### Login
+```bash
+POST /api/v1/auth/login
+{
+  "email": "user@example.com",
+  "password": "password123"
+}
+```
 
-* How to run the test suite
+Response includes `token` - use this in subsequent requests.
 
-* Services (job queues, cache servers, search engines, etc.)
+## Authenticated Endpoints
 
-* Deployment instructions
+Add `Authorization: Bearer <token>` header to all requests.
 
-* ...
+### Timesheets
+```bash
+GET    /api/v1/timesheets              # List all timesheets
+POST   /api/v1/timesheets              # Create timesheet
+GET    /api/v1/timesheets/:id          # Get timesheet
+PUT    /api/v1/timesheets/:id          # Update timesheet
+DELETE /api/v1/timesheets/:id          # Delete timesheet
+```
+
+### Line Items (nested under timesheets)
+```bash
+POST   /api/v1/timesheets/:timesheet_id/line_items     # Add line item
+PUT    /api/v1/timesheets/:timesheet_id/line_items/:id # Update line item
+DELETE /api/v1/timesheets/:timesheet_id/line_items/:id # Delete line item
+```
+
+## Models
+
+- **User**: Email, password (via bcrypt)
+- **TimeSheet**: Description, rate (decimal), belongs_to user, has_many line_items
+- **LineItem**: Date, minutes, belongs_to timesheet
+
+Totals calculated automatically:
+- `total_time`: Sum of all line item minutes
+- `total_cost`: total_time × rate
+
+## Testing
+
+```bash
+rspec --format documentation
+```
+
+Test files in `spec/models/` and `spec/requests/`
