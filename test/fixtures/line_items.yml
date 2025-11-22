@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  time_sheet: one
+  date: MyString
+  minutes: 1
+
+two:
+  time_sheet: two
+  date: MyString
+  minutes: 1
