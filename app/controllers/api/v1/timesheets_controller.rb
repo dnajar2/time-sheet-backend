@@ -1,5 +1,5 @@
 class Api::V1::TimesheetsController < Api::V1::ApiController
-  before_action :set_time_sheet, only: [:show, :update, :destroy]
+  before_action :set_time_sheet, only: [ :show, :update, :destroy ]
 
   def index
     @timesheets = current_user.time_sheets
@@ -40,8 +40,8 @@ end
 
     def time_sheet_params
         params.require(:time_sheet).permit(
-            :description, 
+            :description,
             :rate,
-            line_items_attributes: [:id, :date, :minutes, :_destroy])
+            line_items_attributes: [ :id, :date, :minutes, :_destroy ])
     end
 end

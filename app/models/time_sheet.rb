@@ -10,7 +10,7 @@ class TimeSheet < ApplicationRecord
     def total_time
     line_items.sum(:minutes)
   end
-  
+
   def total_cost
     total_time * rate
   end
