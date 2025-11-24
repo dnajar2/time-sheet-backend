@@ -68,6 +68,10 @@ Totals calculated automatically:
 - `total_time`: Sum of all line item minutes
 - `total_cost`: total_time × rate
 
+## ID Encoding
+
+IDs for timesheets and line items are encoded using Hashids to provide obfuscated, non-sequential identifiers in API responses and URLs.
+
 ## Testing
 
 ```bash
