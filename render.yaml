@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: timesheet-api
+    runtime: ruby
+    plan: free
+    buildCommand: bundle install && bundle exec rake db:migrate
+    startCommand: bundle exec puma -t 5:5 -p ${PORT:-3000}
+    envVars:
+      - key: RAILS_ENV
+        value: production
+      - key: RAILS_MASTER_KEY
+        sync: false

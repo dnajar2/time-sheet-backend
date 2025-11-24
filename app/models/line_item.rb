@@ -1,5 +1,8 @@
 class LineItem < ApplicationRecord
+  include Hashidable
   belongs_to :time_sheet
+
+
 
   after_create :update_time_sheet
   after_update :update_time_sheet
@@ -10,5 +13,17 @@ class LineItem < ApplicationRecord
       total_time: time_sheet.line_items.sum(:minutes),
       total_cost: time_sheet.line_items.sum(:minutes) * time_sheet.rate
     )
+  end
+
+  def as_json(options = {})
+    json = super(options)
+    json["id"] = hashid
+    json
+  end
+
+  def serializable_hash(options = nil)
+    hash = super(options)
+    hash["id"] = hashid
+    hash
   end
 end

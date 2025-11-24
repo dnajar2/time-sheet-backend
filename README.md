@@ -1,6 +1,6 @@
 # Timesheet API
 
-A Rails API for managing timesheets and tracking billable hours.
+A Rails API for managing timesheets and tracking billable hours. This is only for demonstration purposes. This can run localy if Ruby is installed.   
 
 ## Setup
 
@@ -67,6 +67,10 @@ DELETE /api/v1/timesheets/:timesheet_id/line_items/:id # Delete line item
 Totals calculated automatically:
 - `total_time`: Sum of all line item minutes
 - `total_cost`: total_time × rate
+
+## ID Encoding
+
+IDs for timesheets and line items are encoded using Hashids to provide obfuscated, non-sequential identifiers in API responses and URLs.
 
 ## Testing
 

@@ -27,11 +27,11 @@ class Api::V1::LineItemsController < Api::V1::ApiController
     private
 
     def set_time_sheet
-        @time_sheet = TimeSheet.find(params[:timesheet_id])
+        @time_sheet = TimeSheet.find_by_hashid!(params[:timesheet_id])
     end
 
     def set_line_item
-        @line_item = @time_sheet.line_items.find(params[:id])
+        @line_item = LineItem.find_by_hashid!(params[:id])
     end
 
     def line_item_params
