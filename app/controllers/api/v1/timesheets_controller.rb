@@ -2,8 +2,8 @@ class Api::V1::TimesheetsController < Api::V1::ApiController
   before_action :set_time_sheet, only: [ :show, :update, :destroy ]
 
   def index
-    @timesheets = current_user.time_sheets
-    render json: @timesheets
+    @timesheets = current_user.time_sheets.includes(:line_items)
+    render json: @timesheets, include: :line_items
   end
 
   def create
@@ -16,12 +16,12 @@ class Api::V1::TimesheetsController < Api::V1::ApiController
 end
 
   def show
-    render json: @time_sheet
+    render json: @time_sheet, include: :line_items
   end
 
   def update
     if @time_sheet.update(time_sheet_params)
-      render json: @time_sheet
+      render json: @time_sheet, include: :line_items
     else
       render json: @time_sheet.errors, status: :unprocessable_entity
     end
@@ -35,13 +35,13 @@ end
   private
 
   def set_time_sheet
-    @time_sheet = TimeSheet.find(params[:id])
+    @time_sheet = TimeSheet.find_by_hashid!(params[:id])
   end
 
     def time_sheet_params
         params.require(:time_sheet).permit(
             :description,
             :rate,
-            line_items_attributes: [ :id, :date, :minutes, :_destroy ])
+            line_items_attributes: [ :hashid, :date, :minutes, :_destroy ])
     end
 end

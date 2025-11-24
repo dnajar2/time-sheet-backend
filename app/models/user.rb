@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  include Hashidable
   has_secure_password
   has_many :time_sheets, dependent: :destroy
 
