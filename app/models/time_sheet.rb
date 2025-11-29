@@ -17,9 +17,9 @@ class TimeSheet < ApplicationRecord
 
   def line_items_attributes=(attributes)
     attributes.each do |attr|
-      if attr['hashid'].present?
-        li = line_items.find_by_hashid!(attr['hashid'])
-        li.assign_attributes(attr.except('hashid'))
+      if attr["hashid"].present?
+        li = line_items.find_by_hashid!(attr["hashid"])
+        li.assign_attributes(attr.except("hashid"))
       else
         line_items.build(attr)
       end
@@ -28,13 +28,13 @@ class TimeSheet < ApplicationRecord
 
   def as_json(options = {})
     json = super(options)
-    json['id'] = hashid
+    json["id"] = hashid
     json
   end
 
   def serializable_hash(options = nil)
     hash = super(options)
-    hash['id'] = hashid
+    hash["id"] = hashid
     hash
   end
 end

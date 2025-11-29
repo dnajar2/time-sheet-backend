@@ -1,6 +1,6 @@
 # Timesheet API
 
-A Rails API for managing timesheets and tracking billable hours.
+A Rails API for managing timesheets and tracking billable hours. This is only for demonstration purposes. This can run localy if Ruby is installed.   
 
 ## Setup
 

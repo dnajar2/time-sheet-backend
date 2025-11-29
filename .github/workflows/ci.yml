@@ -72,5 +72,7 @@ jobs:
         env:
           RAILS_ENV: test
           # RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-          # REDIS_URL: redis://localhost:6379/0
+          HASHIDS_SALT: ABCD1234XYZ7890
+          HASHIDS_MIN_LENGTH: 8
+          CORS_ORIGINS: localhost:3000,127.0.0.1:3000,https://main.djbkahpdjt85j.amplifyapp.com
         run: bin/rails db:test:prepare test

@@ -17,13 +17,13 @@ class LineItem < ApplicationRecord
 
   def as_json(options = {})
     json = super(options)
-    json['id'] = hashid
+    json["id"] = hashid
     json
   end
 
   def serializable_hash(options = nil)
     hash = super(options)
-    hash['id'] = hashid
+    hash["id"] = hashid
     hash
   end
 end
